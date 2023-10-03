@@ -1,5 +1,6 @@
-import BrowserService from './BrowserService'
 import View from '@ioc:Adonis/Core/View'
+
+import playwright from 'playwright'
 
 interface ScreenshotConfig {
   url: string
@@ -18,14 +19,27 @@ export default class ScreenshotService {
   }
 
   /**
+   * Launches the Chromium browser instance using Playwright.
+   *
+   * @return {Promise<Browser>} A promise that resolves to the Chromium browser instance.
+   */
+  private async launchChromium() {
+    return playwright.chromium.launch({
+      headless: false,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    })
+  }
+
+  /**
    * Capture a screenshot of a webpage.
    *
    * @return {Buffer} The captured screenshot.
    */
   public async capture() {
-    const browser = new BrowserService()
-    const page = await browser.getPage()
+    const browser = await this.launchChromium()
+    const page = await browser.newPage()
 
+    page.setDefaultTimeout(30000)
     page.setViewportSize({ width: this.options.width || 1920, height: this.options.height || 1080 })
 
     await page.goto(this.options.url)
@@ -52,13 +66,14 @@ export default class ScreenshotService {
       image: buffer.toString('base64'),
     })
 
-    const browser = new BrowserService()
-    const page = await browser.getPage()
+    const browser = await this.launchChromium()
+    const page = await browser.newPage()
+
+    page.setDefaultTimeout(30000)
+    page.setViewportSize({ width: this.options.width || 1920, height: this.options.height || 1080 })
 
     await page.setContent(htmlString)
     await page.waitForLoadState('load')
-
-    page.setViewportSize({ width: this.options.width || 1920, height: this.options.height || 1080 })
 
     const screenshot: Buffer = await page.screenshot({
       type: 'png',
