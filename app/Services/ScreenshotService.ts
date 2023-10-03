@@ -25,7 +25,7 @@ export default class ScreenshotService {
    */
   private async launchChromium() {
     return playwright.chromium.launch({
-      headless: false,
+      headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     })
   }
@@ -79,6 +79,7 @@ export default class ScreenshotService {
       type: 'png',
     })
 
+    await page.close()
     return screenshot
   }
 }
