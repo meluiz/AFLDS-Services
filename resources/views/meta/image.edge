@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Thumbnail</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      overflow: hidden;
+      background: #0e0e0e;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        "Helvetica Neue", sans-serif;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+    }
+
+    .wrapper {
+      background-image: url("https://res.cloudinary.com/aflds/image/upload/v1673027012/background_77c476e206.jpg?updated_at=2023-01-06T17:43:33.127Z");
+    }
+
+    .gradient {
+      background: linear-gradient(
+        180deg,
+        rgba(3, 7, 36, 0) 0%,
+        rgba(3, 7, 36, 0.45) 42.19%,
+        rgba(3, 7, 36, 0.7791) 61.98%,
+        rgba(3, 7, 36, 0.92) 80.21%,
+        #030724 100%
+      );
+    }
+
+    .light-l {
+      background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(255, 255, 255, 0.0576) 0%,
+        rgba(255, 255, 255, 0.0511142) 16.67%,
+        rgba(255, 255, 255, 0.0272179) 39.58%,
+        rgba(255, 255, 255, 0) 99.48%
+      );
+    }
+
+    .light-r {
+      background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0.22) 0.01%,
+        rgba(255, 255, 255, 0.05) 62.5%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+
+    .browser {
+      background-image: url("https://res.cloudinary.com/aflds/image/upload/v1672093881/browser_45f158ed35.png?updated_at=2022-12-26T22:31:21.873Z");
+    }
+  </style>
+</head>
+<body>
+  <div
+      class="w-screen h-screen flex relative bg-transparent bg-cover bg-center bg-no-repeat overflow-hidden wrapper"
+    >
+      <!-- Start: Logo -->
+      <img
+        class="w-[281px] h-[105.9px] block absolute top-[80px] left-[50%] translate-x-[-50%] z-10"
+        src="https://res.cloudinary.com/aflds/image/upload/v1676055261/logo_8a98998e99.svg?updated_at=2023-02-10T18:54:23.587Z"
+      />
+      <!-- End: Logo -->
+
+      <!-- Start: Content -->
+      <main
+        id="content"
+        class="w-full h-auto max-w-[1358px] flex flex-col items-center justify-center absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] text-center text-white z-[3]"
+      >
+        <!-- Start: Title -->
+        <h1
+          id="title"
+          class="text-white text-center not-italic font-semibold text-[112px] leading-[1.2] uppercase"
+        >
+          {{title}}
+        </h1>
+        <!-- End: Title -->
+
+        <div
+          id="divider"
+          class="w-auto h-[3px] max-w-full min-w-[1024px] block flex-shrink-0 flex-grow-0 relative mt-[28px] mb-[36px] bg-white"
+        ></div>
+
+        <!-- Start: URL -->
+        <h2
+          id="url"
+          class="text-white text-center tracking-widest font-normal not-italic uppercase text-[44px] leading-[1.2] text-nowrap whitespace-nowrap"
+        >
+          {{hostname}}<strong class="font-bold">{{pathname}}</strong>
+        </h2>
+        <!-- End: URL -->
+      </main>
+      <!-- End: Content -->
+
+      <!-- Start: Gradient -->
+      <div class="w-full h-full block absolute left-0 top-0 z-[2] gradient">
+        <div
+          class="w-[671px] h-[671px] absolute top-[530px] left-[-336px] light-l"
+        ></div>
+        <div
+          class="w-[379px] h-[581px] absolute top-[-41px] right-0 translate-x-[50%] light-r"
+        ></div>
+      </div>
+      <!-- End: Gradient -->
+
+      <!-- Start: Browser -->
+      <div
+        class="w-[1506px] h-[998px] top-[259px] flex justify-center absolute left-[50%] translate-x-[-50%] bg-transparent bg-no-repeat z-[1] browser"
+      >
+        <!-- Start: Screenshot -->
+        <figure
+          class="w-[1502px] h-[962px] top-[27px] block absolute left-[50%] translate-x-[-50%] overflow-hidden shadow-[inset 0px 3px 2px rgba(0, 0, 0, 0.31)]"
+        >
+          <img
+            class="w-full h-full block relative object-contain blur-[1px]"
+            src="data:image/png;base64,{{image}}"
+          />
+        </figure>
+        <!-- Start: Screenshot -->
+      </div>
+      <!-- End: Browser -->
+  <script type="text/javascript" defer>
+    const variables = document.querySelectorAll("[id]");
+    const fonts = [112, 80, 72, 72, 68, 68];
+
+    const el = {
+      content: document.querySelector("#content"),
+      divider: document.querySelector("#divider"),
+      title: document.querySelector("#title"),
+      url: document.querySelector("#url")
+    };
+
+    const title = {};
+    const url = {};
+
+    el.title.innerHTML = el.title.innerHTML
+      .trim()
+      .replace(/(\S+\s*)/g, "<span>$1</span>");
+
+    const spans = {};
+    spans.all = Array.from(el.title.querySelectorAll("span"));
+    spans.offset = spans.all.map(span => span.offsetTop);
+
+    title.lines = Array.from(new Set(spans.offset)).length;
+    title.fontSize = parseInt(window.getComputedStyle(el.title).fontSize);
+    title.lineH = parseInt(window.getComputedStyle(el.title).lineHeight);
+
+    url.width = el.url.scrollWidth;
+    url.fontSize = parseInt(window.getComputedStyle(el.url).fontSize);
+    url.value = (el.content.offsetWidth / url.width) * url.fontSize + 2;
+
+    el.divider.style.width = `${el.title.offsetWidth + 64}px`;
+
+    el.title.style.fontSize = `${fonts[title.lines - 1] || fonts[5]}px`;
+    el.url.style.fontSize = `${url.value >= 44 ? 44 : url.value}px`;
+
+    spans.all = Array.from(el.title.querySelectorAll("span"));
+    spans.offset = spans.all.map(span => span.offsetTop);
+
+    title.fontSize = parseInt(window.getComputedStyle(el.url).fontSize);
+    title.lineH = parseInt(window.getComputedStyle(el.title).lineHeight);
+    title.lines = Array.from(new Set(spans.offset)).length;
+
+    const spacing = [33, 112, 56, 62, 62];
+    const sideEffect = content.offsetHeight / 2 - spacing[title.lines - 1];
+
+    content.style.top = `calc(50% + ${sideEffect + 24}px)`;
+
+    el.title.innerHTML = el.title.innerHTML
+      .replace(/<span>(.*?)<\/span>/gms, "$1")
+      .trim();
+  </script>
+</body>
+</html>
